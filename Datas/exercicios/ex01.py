@@ -37,6 +37,7 @@ class Paciente:
 
 class PacienteUI:
     lista = []
+    @staticmethod
     def main():
         escolha = 0
         while escolha != 7:
@@ -48,6 +49,7 @@ class PacienteUI:
                 case 4: PacienteUI.excluir()
                 case 5: PacienteUI.pesquisar()
                 case 6: PacienteUI.aniversariantes()
+    @staticmethod
     def menu():
         print('[1] Inserir \n[2] Listar \n[3] Atualizar \n[4] Excluir \n[5] Pesquisar \n[6] Aniversariantes \n[7] Sair')
         return int(input('Informe a opção desejada: '))
