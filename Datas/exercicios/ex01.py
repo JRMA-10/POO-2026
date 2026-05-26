@@ -20,7 +20,8 @@ class Paciente:
         if len(t) == 11: self.__telefone = t
         else: raise ValueError
     def set_nascimento(self, n):
-        self.__nascimento = n
+        if n > datetime.now(): self.__nascimento = n
+        else: raise ValueError("Você não pode ter nascido no futuro!")
     def get_id(self): return self.__id
     def get_nome(self): return self.__nome
     def get_cpf(self): return int(self.__cpf)
@@ -90,9 +91,8 @@ class PacienteUI:
                 print(i)
     @classmethod
     def aniversariantes(cls): 
-        data_atual = datetime.now()
-        mes = data_atual.month
+        mes_informado = int(input('Informe o mês para ver os aniversariantes: \n'))
         for i in cls.lista:
-            if i.get_nascimento().month == mes:
+            if i.get_nascimento().month == mes_informado:
                 print(i)
 PacienteUI.main()
