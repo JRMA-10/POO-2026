@@ -13,19 +13,19 @@ class Treino:
         if dt < datetime.now(): self.__dataTreino = dt
         else: raise ValueError('Data inválida!')
     def set_distancia_percorrida(self, dp):
-        if dp < 0: self.__distancia_percorrida = dp
+        if dp > 0: self.__distancia_percorrida = dp
         else: raise ValueError('Distancia inválida')
     def set_tempo_da_corrida(self, tc):
-        if tc >= 0: self.__tempo_da_corrida = tc 
-        else: raise ValueError('Valor inválido!')
+        self.__tempo_da_corrida = tc
     def get_id(self): return self.__id
-    def get_data_do_treino(self): return self.__data_do_treino
+    def get_data_do_treino(self): return self.__dataTreino
     def get_distancia_percorrida(self): return self.__distancia_percorrida
     def get_tempo_da_corrida(self): return self.__tempo_da_corrida
-    def pace(self): 
-        return self.get_tempo_da_corrida() / self.get_distancia_percorrida()
+    def pace(self):
+        segundos = (self.get_tempo_da_corrida().total_seconds()) / 60
+        return segundos / self.get_distancia_percorrida()
     def __str__(self):
-        return f'ID: {self.get_id()} | DATA DO TREINO: {self.get_data_do_treino()} | DISTÂNCIA PERCORRIDA: {self.get_distancia_percorrida()} | TEMPO DA CORRIDA: {self.get_tempo_da_corrida()}'
+        return f'ID: {self.get_id()} | DATA DO TREINO: {datetime.strftime(self.get_data_do_treino(), '%d/%m/%Y')} | DISTÂNCIA PERCORRIDA: {self.get_distancia_percorrida()} | TEMPO DA CORRIDA: {self.get_tempo_da_corrida()} | Pace: {self.pace():.2f}'
     
 class TreinoUI: 
     treinos = []
@@ -41,18 +41,18 @@ class TreinoUI:
                 case 5: TreinoUI.excluir()
                 case 6: TreinoUI.mais_rapido()
     def menu(): 
-        print('[1] INSERIR \n [2] LISTAR \n [3] LISTAR_ID \n [4] ATUALIZAR \n [5] EXCLUIR \n [6] MAIS_RÁPIDO \n [7] SAIR')
+        print('[1] INSERIR \n[2] LISTAR \n[3] LISTAR_ID \n[4] ATUALIZAR \n[5] EXCLUIR \n[6] MAIS_RÁPIDO \n[7] SAIR')
         return int(input('Faça a sua escolha: '))
     @classmethod
     def inserir(cls):
         id = int(input('Informe o ID: \n'))
-        data_do_evento = datetime.strptime(input("'Informe a data do evento: \n"), '%d/%m/%Y')
+        data_do_evento = datetime.strptime(input("Informe a data do evento: \n"), '%d/%m/%Y')
         distancia_percorrida = float(input('Informe a distancia percorrida: \n'))
-        tempo_da_corrida = timedelta(hours = int(input('Informe as horas')), minutes = int(input('Informe os minutos: \n')), seconds = int(input('Informe os segundos: \n')))
+        tempo_da_corrida = timedelta(hours = int(input('Informe as horas: \n')), minutes = int(input('Informe os minutos: \n')), seconds = int(input('Informe os segundos: \n')))
         t = Treino(id, data_do_evento, distancia_percorrida, tempo_da_corrida)
         cls.treinos.append(t)
     @classmethod
-    def listar(cls):
+    def listar(cls): 
         for i in cls.treinos: print(i)
     @classmethod
     def listar_id(cls): 
@@ -65,9 +65,9 @@ class TreinoUI:
         id = int(input('Informe o ID do treino para alteração: '))
         for i in cls.treinos: 
             if i.get_id() == id: 
-                i.set_data_do_evento(data_do_evento = datetime.strptime(input("'Informe a data do evento: \n"), '%d/%m/%Y'))
-                i.set_distancia_percorrida(distancia_percorrida = float(input('Informe a distancia percorrida: \n')))
-                i.set_tempo_de_corrida(tempo_da_corrida = timedelta(hours = int(input('Informe as horas: \n')), minutes = int(input('Informe os minutos: \n')), seconds = int(input('Informe os segundos: \n'))))
+                i.set_data_do_evento(datetime.strptime(input("'Informe a data do evento: \n"), '%d/%m/%Y'))
+                i.set_distancia_percorrida(float(input('Informe a distancia percorrida: \n')))
+                i.set_tempo_de_corrida(timedelta(hours = int(input('Informe as horas: \n')), minutes = int(input('Informe os minutos: \n')), seconds = int(input('Informe os segundos: \n'))))
     @classmethod
     def excluir(cls):
         TreinoUI.listar()
@@ -75,5 +75,8 @@ class TreinoUI:
         for i in cls.treinos: 
             if i.get_id() == id: 
                 cls.treinos.remove(i)
-    def mais_rapido(): 
-        pass
+    @classmethod
+    def mais_rapido(cls):
+        lista_paces = sorted(filter(lambda x: x.pace(), cls.treinos), key = lambda x: x.pace())
+        print(f'Seu melhor treino foi: {lista_paces[0]}')
+TreinoUI.main()
