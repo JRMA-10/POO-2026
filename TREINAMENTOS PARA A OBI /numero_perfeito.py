@@ -1,0 +1,1 @@
+n = int(input()); numeros_perfeitos = list(filter(lambda x: x % 3 == 0 and x % 5 != 0, [i for i in range(1, n + 1)])); print(len(numeros_perfeitos)) 
