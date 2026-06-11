@@ -14,17 +14,10 @@ max(x, y)
 Quando o tempo é y, quantos folhas já temos? 
 '''
 
-x = input().strip().split(); x = list(map(lambda x: int(x), x))
-folhas = 0
-primeira = x[0]
-segunda = x[1]
-total = x[2]
-
+primeira, segunda, total = map(int, input().split()); folhas, segundos = 0, 1
 while folhas != total: 
-    segundos = 1
-
-    if primeira % segundos == 0: folhas += 1
-    if segunda % segundos == 0: folhas += 1
-
+    if segundos % primeira == 0: folhas += 1
+    if segundos % segunda == 0: folhas += 1
+    if folhas >= total: break
     segundos += 1
 print(segundos)

@@ -9,7 +9,7 @@ for i in range(len(numeros)):
     now = numeros[i]
     if i == 0: pre = 0
     else: pre = numeros[i - 1]
-    if now >= pre:
+    if now > pre:
         cont += 1
     else: 
         lista_de_valores.append(cont)
