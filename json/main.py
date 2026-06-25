@@ -1,44 +1,113 @@
-import json
-class Cliente: 
-    def __init__(self, id, nome): 
-        self.id = id 
-        self.nome = nome
+import json #importanto json 
+
+class Cliente:
+    def __init__(self, id, nome, email, fone):
+        self.set_id(id)
+        self.set_nome(nome)
+        self.set_email(email)
+        self.set_fone(fone)
+   
+    def set_id(self, id):
+        if id < 0: raise ValueError("Id deve ser positivo")
+        self.__id = id
+    def set_nome(self, nome):
+        if nome == "": raise ValueError("Nome deve ser informado")
+        self.__nome = nome
+    def set_email(self, email):
+        if email == "": raise ValueError("E-mail deve ser informado")
+        self.__email = email
+    def set_fone(self, fone):
+        if fone == "": raise ValueError("Fone deve ser informado")
+        self.__fone = fone
+
+    def get_id(self) : return self.__id
+    def get_nome(self) : return self.__nome
+    def get_email(self) : return self.__email
+    def get_fone(self) : return self.__fone
+
     def __str__(self):
-        return f'{self.id} - {self.nome}'
+        return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone}"
+   
     def to_json(self):
-        return { "id" : self.id, "nome" : self.nome }
+        return { "id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__fone } #informando chaves e valores
+   
     @staticmethod
-    def from_json(dic): 
-        return Cliente(dic['id'], dic['nome'])
+    def from_json(dic):
+        return Cliente(dic["id"], dic["nome"], dic["email"], dic["fone"]) #pegando cada chave dentro do arquivo json
 
-def salvar():
-    a = Cliente(1, "Douglas Crockford")
-    b = Cliente(2, "Jon Bosak")
-    c = Cliente.from_json({ 'id' : 3, 'nome' : 'Alan Turing' })
 
-    lista = [a, b, c]
-    arquivo = open('Clientes.json', mode = 'w')
-    json.dump(lista, arquivo, default = Cliente.to_json, indent = 2)
-    arquivo.close()
+class ClienteUI:
+    __objetos = [] #objeto encapsulado
+    @staticmethod
+    def main():
+        ClienteUI.abrir()
+        op = 0
+        while op != 9:
+            op = ClienteUI.menu()
+            if op == 1: ClienteUI.inserir()
+            if op == 2: ClienteUI.listar()
+            if op == 3: ClienteUI.atualizar()
+            if op == 4: ClienteUI.excluir()
 
-def abrir(): 
-    arquivo = open("clientes.json", mode = 'r')
-    list_dic = json.load(arquivo)
-    arquivo.close()
-    for dic in list_dic: 
-        x = Cliente.from_json(dic)
-        print(x)
+    @staticmethod
+    def menu():
+        print("1-Inserir, 2-Listar, 3-Atualizar, 4-Excluir, 9-Fim")
+        return int(input("Informe uma opção: "))
 
-#salvar()
-abrir()
+    @classmethod
+    def salvar(cls):    
+        arquivo = open("clientes.json", mode = "w") #vai estar criando o arquivo ou salvando
+        json.dump(cls.__objetos, arquivo, default = Cliente.to_json, indent = 2) #estrutura básica para criar o JSON
+        arquivo.close() #fecha o arquivo
 
-'''print(a)
-print(b)
-print(c)
-print(a.__dict__) #Transforma em dicionário
-print(b.__dict__) 
-print(c.__dict__) 
-print(vars(a)) #também transforma em dicionário
-print(vars(b))
+    @classmethod
+    def abrir(cls):
+        try:  
+            arquivo = open("clientes.json", mode = "r") #vai estar visualizando o arquivo 
+            list_dic = json.load(arquivo)
+            arquivo.close()
+            cls.__objetos = []
+            for dic in list_dic:
+                x = Cliente.from_json(dic)
+                cls.__objetos.append(x)
+        except FileNotFoundError:
+            pass
 
-print(b.to_json())'''
+    @classmethod
+    def inserir(cls):
+        id = int(input("Informe o id: "))
+        nome = input("Informe o nome: ")
+        email = input("Informe o e-mail: ")
+        fone = input("Informe o telefone: ")
+        x = Cliente(id, nome, email, fone)
+        cls.__objetos.append(x)
+        ClienteUI.salvar()
+
+    @classmethod
+    def listar(cls):                
+        for x in cls.__objetos: print(x)
+
+    @classmethod
+    def atualizar(cls):
+        for x in cls.__objetos: print(x)
+        id = int(input("Informe o id do cliente a ser atualizado: "))
+        for x in cls.__objetos:
+            if x.get_id() == id:
+                nome = input("Informe o novo nome: ")
+                email = input("Informe o novo e-mail: ")
+                fone = input("Informe o novo telefone: ")
+                x.set_nome(nome)
+                x.set_email(email)
+                x.set_fone(fone)
+                ClienteUI.salvar()
+
+    @classmethod
+    def excluir(cls):
+        for x in cls.__objetos: print(x)
+        id = int(input("Informe o id do cliente a ser excluído: "))
+        for x in cls.__objetos:
+            if x.get_id() == id:
+                cls.__objetos.remove(x)
+                ClienteUI.salvar()
+
+ClienteUI.main()
