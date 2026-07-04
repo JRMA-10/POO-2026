@@ -1,0 +1,13 @@
+A biblioteca datetime tem uma classe chamada de "datetime", timedelta e Zoneinfo (estas foram vistas em sala de aula)
+from datetime import datetime
+> O datetime requer: ano, mês, dia, horas, minutos e segundos
+> datetime.now() -> Pega a data atual
+
+Zoneinfo("America/Sao_paulo")
+> Zoneinfo -> fuso
+
+strptime - string to date -- método estático (chama uma classe)
+strftime - date to string -- método de instancia (chama uma variavel da classe (objeto))
+> Precisa-se informar a ordem na qual a data está organizada -> "%d/%m/%Y"
+
+timedelta guarda valores como quantidade de dias, horas, minutos, segundos, milissegundos

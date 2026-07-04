@@ -1,4 +1,4 @@
-import json #importanto json 
+import json #importanto json -> JavaScript Object Notation
 
 class Cliente:
     def __init__(self, id, nome, email, fone):
@@ -68,7 +68,7 @@ class ClienteUI:
             arquivo.close()
             cls.__objetos = []
             for dic in list_dic:
-                x = Cliente.from_json(dic)
+                x = Cliente.from_json(dic) #trazendo do arquivo json
                 cls.__objetos.append(x)
         except FileNotFoundError:
             pass
