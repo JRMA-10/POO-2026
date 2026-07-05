@@ -30,10 +30,12 @@ class Pais:
     def get_nome(self): return self.__nome
     def get_sigla(self): return self.__sigla
     def get_grupo(self): return self.__grupo
-    def to_json(self): return {"id" : self.__id, "nome" : self.__nome, "sigla" : self.__sigla, "grupo" : self.__grupo}
+    def to_json(self): return {"id" : self.__id, "nome" : self.__nome, "sigla" : self.__sigla, "grupo" : self.get_grupo().name}
+    
     @staticmethod
     def from_json(dic): return Pais(dic["id"], dic["nome"], dic["sigla"], dic["grupo"])
-    def __str__(self): return f'ID: {self.__id} | NOME: {self.__nome} | SIGLA: {self.__sigla} | GRUPO: {Grupo(self.__grupo)}'
+
+    def __str__(self): return f'ID: {self.__id} | NOME: {self.__nome} | SIGLA: {self.__sigla} | GRUPO: {self.get_grupo().name}'
 
 class Jogos:
     def __init__(self, id, id_1, id_2, gols_1, gols_2, fase, hora):
@@ -60,10 +62,8 @@ class Jogos:
         if g < 0: raise ValueError
         self.__gols_2 = g
     def set_fase(self, f):
-        if f < 0: raise ValueError
         self.__fase = f
     def set_hora(self, h):
-        if h > datetime.now(): raise ValueError
         self.__hora = h
     def get_id(self): return self.__id
     def get_id_1(self): return self.__id_1
@@ -72,10 +72,13 @@ class Jogos:
     def get_gols_2(self): return self.__gols_2
     def get_fase(self): return self.__fase
     def get_hora(self): return self.__hora
-    def to_json(self): return {'id' : self.__id, 'time1' : self.__id_1, 'time2' : self.__id_2, 'gols1' : self.__gols_1, 'gols2' : self.__gols_2, 'fase' : self.__fase, 'hora' : self.__hora}
+
+    def to_json(self): return {'id' : self.__id, 'time1' : self.__id_1, 'time2' : self.__id_2, 'gols1' : self.__gols_1, 'gols2' : self.__gols_2, 'fase' : self.get_fase().name, 'hora' : self.get_hora().strftime("%d/%m/%Y")}
+    
     @staticmethod
     def from_json(dic): return Jogos(dic['id'], dic['time1'], dic['time2'], dic['gols1'], dic['gols2'], dic['fase'], dic['hora'])
-    def __str__(self): return f'ID: {self.__id} | TIME 1: {self.__id_1} | TIME 2: {self.__id_2} | GOLS 1: {self.__gols_1} | GOLS 2: {self.__gols_2} | FASE: {Fase(self.__fase)} | HORA: {self.get_hora().strftime("%d/%m/%Y")}'
+    
+    def __str__(self): return f'ID: {self.__id} | TIME 1: {self.__id_1} | TIME 2: {self.__id_2} | GOLS 1: {self.__gols_1} | GOLS 2: {self.__gols_2} | FASE: {self.get_fase().name} | HORA: {self.get_hora().strftime("%d/%m/%Y")}'
 
 class UI: 
     __lista_de_paises = []
@@ -123,9 +126,11 @@ class UI:
         UI.salvar_jogos()
     @classmethod
     def listar_paises(cls):
+        if len(cls.__lista_de_paises) == 0: UI.abrir_paises()
         for i in cls.__lista_de_paises: print(i)
     @classmethod
     def listar_jogos(cls): 
+        if len(cls.__lista_de_jogos) == 0: UI.abrir_jogos()
         for i in cls.__lista_de_jogos: print(i)
     def atualizar_pais(): 
         pass

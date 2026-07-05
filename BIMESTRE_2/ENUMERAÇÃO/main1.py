@@ -4,3 +4,5 @@ class Estacao(enum.Enum):
     INVERNO = 2
     PRIMAVEA = 3
     VERAO = 4
+
+print(Estacao(4).name)
