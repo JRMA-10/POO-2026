@@ -18,7 +18,7 @@ class ClienteDAO:
             if obj.get_id() == id: return obj
         return None
     def atualizar(self, obj): 
-        aux = self.listar_id(self.get_id)
+        aux = self.listar_id(self.get_id())
         if aux != None: 
             self.__objetos.remove(aux)
             self.__objetos.append(obj)
@@ -27,7 +27,7 @@ class ClienteDAO:
         aux = self.listar_id(id)
         if aux != None: 
             self.__objetos.remove(aux)
-            self.salvar()
+            self.__salvar()
     def __abrir(self): 
         try: 
             arquivo = open(self.__arquivo, mode = 'r')
@@ -37,7 +37,7 @@ class ClienteDAO:
             for dic in list_dic: 
                 obj = Cliente.from_json(dic)
                 self.__objetos.append(obj)
-        except FileExistsError: 
+        except FileNotFoundError: 
             pass
     def __salvar(self): 
         arquivo = open(self.__arquivo, mode = 'w')
