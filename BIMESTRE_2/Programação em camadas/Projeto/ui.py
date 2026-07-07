@@ -21,22 +21,22 @@ class UI:
         nome = input('Informe o nome: \n')
         email = input('Informe o email: \n')
         fone = input('Informe o telefone: \n')
-        Service.cliente_inserir(id, nome, email, fone)
+        Service().cliente_inserir(id, nome, email, fone)
     @staticmethod
     def cliente_listar(): 
-        for obj in Service.cliente_listar(): print(obj)
+        for obj in Service().cliente_listar(): print(obj)
     @staticmethod
     def cliente_atualizar(): 
-        for obj in Service.cliente_listar(): print(obj)
+        for obj in Service().cliente_listar(): print(obj)
         id = int(input('Informe o ID a ser atualizado: \n'))
         nome = input('Informe o novo nome: \n')
         email = input('Informe o novo email: \n')
         fone = input('Informe o novo telefone: \n')
-        Service.cliente_atualizar(id, nome, email, fone)
+        Service().cliente_atualizar(id, nome, email, fone)
     @staticmethod
     def cliente_excluir():
         for obj in Service().cliente_listar(): print(obj)
         id = int(input('Informe o id do cliente a ser excluido: \n'))
-        Service.cliente_excluir(id)
+        Service().cliente_excluir(id)
 
 UI.main()
