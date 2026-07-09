@@ -26,6 +26,7 @@ class ServicoDAO:
         if aux != None: 
             self.__objetos.remove(aux)
             self.__salvar()
+    def id(self): return len(self.__objetos)
     def __abrir(self): 
         try: 
             arquivo = open(self.__arquivo, mode = 'r')
