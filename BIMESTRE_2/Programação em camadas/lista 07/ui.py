@@ -23,14 +23,13 @@ class UI:
         return int(input('Informe uma opção: '))
     @staticmethod
     def cliente_inserir(): 
-        id = int(input('Informe o ID: \n'))
         nome = input('Informe o nome: \n')
         email = input('Informe o email: \n')
         fone = input('Informe o telefone: \n')
-        Service.cliente_inserir(id, nome, email, fone)
+        Service.cliente_inserir(nome, email, fone)
     @staticmethod
     def cliente_listar(): 
-        for obj in Service().cliente_listar(): print(obj)
+        for obj in Service.cliente_listar(): print(obj)
     @staticmethod
     def cliente_atualizar(): 
         for obj in Service().cliente_listar(): print(obj)
@@ -51,10 +50,9 @@ class UI:
     
     @staticmethod
     def servico_inserir(): 
-        id = int(input('Informe o ID do serviço: \n'))
         servico = input('Informe a descricao do servico: \n')
         valor = float(input('Informe o valor do serviço: \n'))
-        Service.servico_inserir(id, servico, valor)
+        Service.servico_inserir(servico, valor)
     @staticmethod
     def servico_listar(): 
         for obj in Service.servico_listar: print(obj)

@@ -8,6 +8,10 @@ class ServicoDAO:
         self.__objetos = []
         self.__abrir()
     def inserir(self, obj): #recebe um objeto para adicionar na lista
+        id = 0
+        for objeto in self.__objetos: 
+            if objeto.get_id() > id: id = objeto.get_id()
+            objeto.set_id(id + 1)
         self.__objetos.append(obj)
         self.__salvar()
     def listar(self): return self.__objetos # retorna a lista inteira
@@ -26,7 +30,6 @@ class ServicoDAO:
         if aux != None: 
             self.__objetos.remove(aux)
             self.__salvar()
-    def id(self): return len(self.__objetos)
     def listar_nome(self, iniciais): return [filter(lambda x: x.starswith(iniciais), self.__objetos)]
     def __abrir(self): 
         try: 
