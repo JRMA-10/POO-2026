@@ -22,6 +22,9 @@ class Service:
     @staticmethod
     def cliente_excluir(id):
         ClienteDAO.excluir(id)
+    @staticmethod
+    def cliente_listar_nomes(iniciais): 
+        return ClienteDAO.listar_nome(iniciais)
     
     @staticmethod
     def servico_inserir(descricao, valor): 
@@ -41,3 +44,6 @@ class Service:
     @staticmethod
     def servico_excluir(id):
         ServicoDAO.excluir(id)
+    @staticmethod
+    def servico_listar_nomes(iniciais): 
+        return ServicoDAO.listar_nome(iniciais)

@@ -29,6 +29,7 @@ class ClienteDAO:
             self.__objetos.remove(aux)
             self.__salvar()
     def id(self): return len(self.__objetos)
+    def listar_nome(self, iniciais): return [filter(lambda x: x.starswith(iniciais), self.__objetos)]
     def __abrir(self): 
         try: 
             arquivo = open(self.__arquivo, mode = 'r')
