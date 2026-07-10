@@ -1,11 +1,11 @@
 # DAO = DATA ACCESS OBJECT
-from models.cliente import Cliente
+from models.profissionais import Profissionais
 from pathlib import Path
 import json
 
-class ClienteDAO: 
+class ProfissionaisDAO: 
     def __init__(self): 
-        self.__arquivo = Path(__file__).resolve().parent / "clientes.json"
+        self.__arquivo = Path(__file__).resolve().parent / "profissionais.json"
         self.__objetos = []
         self.__abrir()
     def inserir(self, obj):
@@ -42,11 +42,11 @@ class ClienteDAO:
             arquivo.close()
             self.__objetos = []
             for dic in list_dic: 
-                obj = Cliente.from_json(dic)
+                obj = Profissionais.from_json(dic)
                 self.__objetos.append(obj)
         except FileNotFoundError: 
             pass
     def __salvar(self): 
         arquivo = open(self.__arquivo, mode = 'w')
-        json.dump(self.__objetos, arquivo, default = Cliente.to_json, indent = 2)
+        json.dump(self.__objetos, arquivo, default = Profissionais.to_json, indent = 2)
         arquivo.close()

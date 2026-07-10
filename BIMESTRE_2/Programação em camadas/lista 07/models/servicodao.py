@@ -30,7 +30,12 @@ class ServicoDAO:
         if aux != None: 
             self.__objetos.remove(aux)
             self.__salvar()
-    def listar_nome(self, iniciais): return [filter(lambda x: x.starswith(iniciais), self.__objetos)]
+    def listar_descricao(self, desc): 
+        for i in self.__objetos: 
+            if i.get_descricao().lower() == desc.lower(): return i; return None 
+    def listar_nome(self, iniciais): 
+        for i in self.__objetos: 
+            if i.get_nome().lower().startswith(iniciais.lower()): return i; return None
     def __abrir(self): 
         try: 
             arquivo = open(self.__arquivo, mode = 'r')

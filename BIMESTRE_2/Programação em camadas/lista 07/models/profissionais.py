@@ -1,11 +1,12 @@
 # Definindo entidade
-class Cliente: 
-    def __init__(self, id, nome, email, fone, senha): 
+
+class Profissionais: 
+    def __init__(self, id, nome, email, senha, especialidade): 
         self.set_id(id)
         self.set_nome(nome)
         self.set_email(email)
-        self.set_fone(fone)
         self.set_senha(senha)
+        self.set_especialidade(especialidade)
     def set_id(self, id): 
         if id < 0: raise ValueError('Id deve ser positivo!')
         self.__id = id
@@ -20,19 +21,22 @@ class Cliente:
         self.__fone = fone
     def set_senha(self, senha):
         if len(senha) == 0: raise ValueError
-        self.__senha = senha 
+        self.__senha = senha
+    def set_especialidade(self, esp): 
+        if len(esp) == 0: raise ValueError
+        self.__especialidade = esp
     def get_id(self): return self.__id
     def get_nome(self): return self.__nome
     def get_email(self): return self.__email
-    def get_fone(self): return self.__fone
     def get_senha(self): return self.__senha
+    def get_especialidade(self): return self.__especialidade
 
-    def to_json(self): return {'id' : self.__id, 'nome' : self.__nome, 'email' : self.__email, 'fone' : self.__fone, 'senha' : self.__senha}
+    def to_json(self): return {'id' : self.__id, 'nome' : self.__nome, 'email' : self.__email, 'senha' : self.__senha, 'especialidade' : self.__especialidade}
 
     @staticmethod
     def from_json(dic): 
-        return Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['senha'])
+        return Cliente(dic['id'], dic['nome'], dic['email'], dic['senha'], dic['especialidade'])
 
     def __str__(self): 
-        return f'ID: {self.__id} | NOME: {self.__nome} | EMAIL: {self.__email} | TELEFONE: {self.__fone} | SENHA: {self.__senha}'
+        return f'ID: {self.__id} | NOME: {self.__nome} | EMAIL: {self.__email} | SENHA: {self.__senha} | ESPECIALIDADE: {self.__especialidade}'
     
