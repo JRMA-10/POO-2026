@@ -50,9 +50,9 @@ class UI:
         Service.cliente_atualizar(id, nome, email, fone, senha)
     @staticmethod
     def cliente_excluir():
-        for obj in Service().cliente_listar(): print(obj)
+        for obj in Service.cliente_listar(): print(obj)
         id = int(input('Informe o id do cliente a ser excluido: \n'))
-        Service().cliente_excluir(id)
+        Service.cliente_excluir(id)
     def cliente_pesquisar_nome(): 
         iniciais = input('Insira as inicias: ')
         lista_nomes = Service.cliente_listar_nomes(iniciais)
@@ -69,7 +69,7 @@ class UI:
         for obj in Service.servico_listar: print(obj)
     @staticmethod
     def servico_atualizar(): 
-        for obj in Service().servico_listar(): print(obj)
+        for obj in Service.servico_listar(): print(obj)
         id = int(input('Informe o ID a ser atualizado: \n'))
         descricao = input('Informe a nova descrição: \n')
         valor = float(input('Informe o novo valor: \n'))
@@ -113,7 +113,7 @@ class UI:
     def profissionais_excluir():
         for obj in Service().profissionais_listar(): print(obj)
         id = int(input('Informe o id do cliente a ser excluido: \n'))
-        Service().profissionais_excluir(id)
+        Service.profissionais_excluir(id)
     def profissionais_pesquisar_nome(): 
         iniciais = input('Insira as inicias: ')
         lista_nomes = Service.profissionais_listar_nomes(iniciais)

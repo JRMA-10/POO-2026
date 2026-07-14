@@ -9,7 +9,7 @@ class Service:
     @staticmethod
     def cliente_inserir(nome, email, fone, senha):
         obj = Cliente(0, nome, email, fone, senha)
-        ClienteDAO.inserir(obj)
+        ClienteDAO().inserir(obj)
     @staticmethod
     def cliente_listar(): return ClienteDAO().listar()
     @staticmethod
@@ -46,7 +46,7 @@ class Service:
     @staticmethod
     def profissionais_inserir(nome, email, senha, especialidade):
         obj = Profissionais(0, nome, email, senha, especialidade)
-        ProfissionaisDAO.inserir(obj)
+        ProfissionaisDAO().inserir(obj)
     @staticmethod
     def profissionais_listar(): return ProfissionaisDAO().listar()
     @staticmethod
