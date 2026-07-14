@@ -22,7 +22,7 @@ class ServicoDAO:
     def atualizar(self, obj): 
         aux = self.listar_id(self.get_id) #encontra esse id
         if aux != None: 
-            self.__objetos.remove(aux)
+            self.__objetos.remove(aux) # Exclui e depois adiciona
             self.__objetos.append(obj)
             self.__salvar()
     def excluir(self, id): 

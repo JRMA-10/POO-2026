@@ -15,8 +15,7 @@ class ProfissionaisDAO:
             objeto.set_id(id + 1)
         self.__objetos.append(obj)
         self.__salvar()
-    def listar(self): 
-        return self.__objetos
+    def listar(self): return self.__objetos
     def listar_id(self, id): 
         for obj in self.__objetos: 
             if obj.get_id() == id: return obj

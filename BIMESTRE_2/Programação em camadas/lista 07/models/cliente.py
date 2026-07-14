@@ -30,8 +30,7 @@ class Cliente:
     def to_json(self): return {'id' : self.__id, 'nome' : self.__nome, 'email' : self.__email, 'fone' : self.__fone, 'senha' : self.__senha}
 
     @staticmethod
-    def from_json(dic): 
-        return Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['senha'])
+    def from_json(dic): return Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['senha'])
 
     def __str__(self): 
         return f'ID: {self.__id} | NOME: {self.__nome} | EMAIL: {self.__email} | TELEFONE: {self.__fone} | SENHA: {self.__senha}'

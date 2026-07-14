@@ -35,7 +35,7 @@ class Profissionais:
 
     @staticmethod
     def from_json(dic): 
-        return Cliente(dic['id'], dic['nome'], dic['email'], dic['senha'], dic['especialidade'])
+        return Profissionais(dic['id'], dic['nome'], dic['email'], dic['senha'], dic['especialidade'])
 
     def __str__(self): 
         return f'ID: {self.__id} | NOME: {self.__nome} | EMAIL: {self.__email} | SENHA: {self.__senha} | ESPECIALIDADE: {self.__especialidade}'

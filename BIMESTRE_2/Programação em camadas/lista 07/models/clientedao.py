@@ -15,8 +15,7 @@ class ClienteDAO:
             objeto.set_id(id + 1)
         self.__objetos.append(obj)
         self.__salvar()
-    def listar(self): 
-        return self.__objetos
+    def listar(self): return self.__objetos
     def listar_id(self, id): 
         for obj in self.__objetos: 
             if obj.get_id() == id: return obj
@@ -40,7 +39,7 @@ class ClienteDAO:
             arquivo = open(self.__arquivo, mode = 'r')
             list_dic = json.load(arquivo)
             arquivo.close()
-            self.__objetos = []
+            self.__objetos = [] # Reseta a lista
             for dic in list_dic: 
                 obj = Cliente.from_json(dic)
                 self.__objetos.append(obj)
