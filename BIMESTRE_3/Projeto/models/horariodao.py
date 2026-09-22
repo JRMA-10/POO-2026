@@ -53,4 +53,3 @@ class HorarioDAO:
         arquivo = open(self.__arquivo, mode = "w")
         json.dump(self.__objetos, arquivo, default = Horario.to_json, indent = 2)
         arquivo.close()
-        

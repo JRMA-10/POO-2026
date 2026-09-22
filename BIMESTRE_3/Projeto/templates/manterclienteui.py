@@ -16,7 +16,7 @@ class ManterClienteUI:
         if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
         else:
             list_dic = []
-            for obj in clientes: list_dic.append(obj.to_json())
+            for obj in clientes: list_dic.append(obj.to_json()) # Envia o obj para JSON
             df = pd.DataFrame(list_dic)
             st.dataframe(df)
     def inserir():

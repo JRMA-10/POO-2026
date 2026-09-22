@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": 2,
+    "nome": "admin",
+    "email": "admin",
+    "fone": "fone",
+    "senha": "1234"
+  },
+  {
+    "id": 2,
+    "nome": "JO\u00c3O",
+    "email": "mendoncaalexandrejoaorafael@gmail.com[",
+    "fone": "(84) 99817-0314",
+    "senha": "vacosc"
+  },
+  {
+    "id": 0,
+    "nome": "Rafael",
+    "email": "joao@gmail.com",
+    "fone": "48652854758",
+    "senha": "jrma"
+  }
+]

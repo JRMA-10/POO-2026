@@ -6,21 +6,27 @@ class Cliente:
         self.set_email(email)
         self.set_fone(fone)
         self.set_senha(senha)
+
     def set_id(self, id): 
         if id < 0: raise ValueError('Id deve ser positivo!')
         self.__id = id
+
     def set_nome(self, nome): 
         if len(nome) == 0: raise ValueError('Nome deve ser informado!')
         self.__nome = nome
+
     def set_email(self, email): 
         if len(email) == 0 and not '@' in email: raise ValueError('E-mail deve ser informado com @!')
         self.__email = email
+
     def set_fone(self, fone): 
         if len(fone) == 0: raise ValueError('TELEFONE DEVE SER INFORMADO!')
         self.__fone = fone
+
     def set_senha(self, senha):
         if len(senha) == 0: raise ValueError
         self.__senha = senha 
+    
     def get_id(self): return self.__id
     def get_nome(self): return self.__nome
     def get_email(self): return self.__email
