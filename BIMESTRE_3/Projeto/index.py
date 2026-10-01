@@ -9,26 +9,29 @@ from templates.perfilclienteui import PerfilClienteUI
 from templates.perfilprofissionalui import PerfilProfissionalUI
 from templates.agendarservicoui import AgendarServicoUI
 from templates.abrirminhaagendaui import AbrirMinhaAgendaUI
+from templates.meusservicosui import MeusServicosUI
+from templates.confirmarservicoui import ConfirmarServicoUI
 
 from service import Service
 import streamlit as st
 
 class IndexUI:
-
     def menu_visitante():
         op = st.sidebar.selectbox("Menu", ["Entrar no Sistema", "Abrir Conta"])
         if op == "Entrar no Sistema": LoginUI.main()
         if op == "Abrir Conta": AbrirContaUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Meus serviços"])
         if op == "Meus Dados": PerfilClienteUI.main()
         if op == "Agendar Serviço": AgendarServicoUI.main()
+        if op == "Meus serviços": MeusServicosUI.main()
 
     def menu_profissional():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir minha agenda"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir minha agenda", "Confirmar Agendamento"])
         if op == "Meus Dados": PerfilProfissionalUI.main()
         if op == "Abrir minha agenda": AbrirMinhaAgendaUI.main()
+        if op == "Confirmar Agendamento": ConfirmarServicoUI.main()
 
     def menu_admin():
         op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horários", "Profissionais", "Atendimentos"])

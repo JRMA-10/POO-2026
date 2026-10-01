@@ -23,7 +23,7 @@ class ManterServicoUI:
         descr = st.text_input("Informe a descrição: ")
         valor = st.text_input("Informe o valor: ")
         if st.button("Inserir"):
-            Service.servico_inserir(descr, valor)
+            Service.servico_inserir(descr, float(valor))
             st.success("Serviço inserido com sucesso")
             time.sleep(2)
             st.rerun() # Roda novamente
@@ -36,7 +36,7 @@ class ManterServicoUI:
             valor = st.text_input("Informe o novo valor", str(op.get_valor()))
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.servico_atualizar(id, descr, valor)
+                Service.servico_atualizar(id, descr, float(valor))
                 st.success("Serviço atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()

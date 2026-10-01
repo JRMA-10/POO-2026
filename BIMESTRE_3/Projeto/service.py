@@ -94,17 +94,18 @@ class Service:
         r = []
         agora = datetime.now()
         for h in Service.horario_listar(): 
-            if h.get_data() >= agora and h.get_confirmado() == False and h.get_id_cliente() == None and h.get_id_profissional() == id_profissional: 
+            if h.get_data() >= agora and h.get_id_profissional() == id_profissional: 
                 r.append(h)
         r.sort(key = lambda h : h.get_data())
-        return h
+        return r
     @staticmethod
     def visualizar_agenda(id_profissional):
-        agendamentos = []
-        for horario in Service.horario_listar(): 
-            if horario.get_id_profissional == id_profissional: agendamentos.append(horario)
+        agendamentos = Service.horario_listar_disponiveis(id_profissional)
         return agendamentos
-
+    def cliente_visualizar_agenda(id_cliente): 
+        agendamentos = Service.horario_listar_disponiveis(id_cliente)
+        return agendamentos
+    
     @staticmethod
     def horario_abrir_minha_agenda(data, horario_inicio, horario_fim, intervalo, id_profissional): 
         data_inicio = datetime.strptime(data + " " + horario_inicio, "%d/%m/%Y %H:%M")
