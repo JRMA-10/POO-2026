@@ -12,7 +12,7 @@ class AbrirMinhaAgendaUI:
         with tab2: AbrirMinhaAgendaUI.inserir()
 
     def listar(): 
-        agendamentos = Service.visualizar_agenda(st.session_state["usuario_id"])
+        agendamentos = Service.horario_listar_disponiveis(st.session_state["usuario_id"])
         if len(agendamentos) == 0: st.write("Nenhum agendamento registrado")
         else:
             list_dic = []
