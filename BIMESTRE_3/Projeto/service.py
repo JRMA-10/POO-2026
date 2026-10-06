@@ -41,7 +41,11 @@ class Service:
             if c.get_email() == email and c.get_senha() == senha:
                 return {"id": c.get_id(), "nome": c.get_nome()} # retorna id e nome
         return None
-
+    @staticmethod
+    def get_id_admin(): 
+        for i in Service.cliente_listar(): 
+            if i.get_email() == 'admin': 
+                return i.get_id()
 
     @staticmethod
     def servico_inserir(descricao, valor):
@@ -94,7 +98,7 @@ class Service:
         r = []
         agora = datetime.now()
         for h in Service.horario_listar(): 
-            if h.get_data() >= agora and h.get_id_profissional() == id_profissional and h.get_confirmado() == False: 
+            if h.get_data() >= agora and h.get_id_profissional() == id_profissional and not h.get_confirmado(): 
                 r.append(h)
         r.sort(key = lambda h : h.get_data())
         return r
@@ -103,7 +107,7 @@ class Service:
         r = []
         agora = datetime.now()
         for h in Service.horario_listar(): 
-            if h.get_data() >= agora and h.get_id_profissional() == id_profissional and h.get_id_cliente() != None: 
+            if h.get_data() >= agora and h.get_id_profissional() == id_profissional and h.get_id_cliente() != None and h.get_confirmado() != True: 
                 r.append(h)
         r.sort(key = lambda h : h.get_data())
         return r
@@ -111,7 +115,7 @@ class Service:
     def cliente_visualizar_agenda(id_cliente):
         r = []
         for h in Service.horario_listar(): 
-            if h.get_id_cliente() == id_cliente and h.get_confirmado(): 
+            if h.get_id_cliente() == id_cliente: 
                 r.append(h)
         return r
     

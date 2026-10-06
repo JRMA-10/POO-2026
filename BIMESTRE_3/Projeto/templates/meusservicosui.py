@@ -5,7 +5,8 @@ import pandas as pd
 from datetime import datetime
 
 class MeusServicosUI: 
-    def main(): 
+    def main():
+        st.header("Meus Serviços")
         horarios = Service.cliente_visualizar_agenda(st.session_state["usuario_id"])
         if len(horarios) == 0: st.write("Nenhum horário registrado")
         else:

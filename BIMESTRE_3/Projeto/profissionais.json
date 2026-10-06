@@ -5,5 +5,12 @@
     "email": "mendoncaalexandrejoaorafael@gmail.com",
     "especialidade": "Cardiologista",
     "senha": "1234"
+  },
+  {
+    "id": 2,
+    "nome": "HEITOR GUSM\u00c3O EGITO",
+    "email": "heitor@gmail.com",
+    "especialidade": "Infectologista",
+    "senha": "1234"
   }
 ]

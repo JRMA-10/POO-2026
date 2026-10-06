@@ -9,6 +9,8 @@ class Atendimento:
         self.set_avaliacao(avaliacao)
         self.set_prescricao(prescricao)
         self.set_id_horario(0)
+        self.__total = 0
+        self.__pago = False
     
     def set_id(self, id):
         if id < 0: raise ValueError("Id deve ser positivo")
@@ -37,6 +39,8 @@ class Atendimento:
     def get_avaliacao(self) : return self.__avaliacao
     def get_prescricao(self) : return self.__prescricao
     def get_id_horario(self) : return self.__id_horario # Aqui vai ocorrer o relacionamento
+    def get_total(self): return self.__total
+    def get_pago(self): return self.__pago
     
     def __str__(self):
         return f"{self.__id} - {self.__data.strftime("%d/%m/%Y %H:%M")} - {self.__queixa_principal} - {self.__historico_saude} - {self.__historico_saude} - {self.__avaliacao} - {self.__prescricao}"

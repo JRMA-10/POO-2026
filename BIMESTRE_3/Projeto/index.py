@@ -11,6 +11,7 @@ from templates.agendarservicoui import AgendarServicoUI
 from templates.abrirminhaagendaui import AbrirMinhaAgendaUI
 from templates.meusservicosui import MeusServicosUI
 from templates.confirmarservicoui import ConfirmarServicoUI
+from templates.adminui import AdminUI
 
 from service import Service
 import streamlit as st
@@ -34,7 +35,8 @@ class IndexUI:
         if op == "Confirmar Agendamento": ConfirmarServicoUI.main()
 
     def menu_admin():
-        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horários", "Profissionais", "Atendimentos"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Clientes", "Serviços", "Horários", "Profissionais", "Atendimentos"])
+        if op == "Meus Dados": AdminUI.main()
         if op == "Clientes": ManterClienteUI.main()
         if op == "Serviços": ManterServicoUI.main()
         if op == "Horários": ManterHorarioUI.main()
