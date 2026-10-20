@@ -149,11 +149,19 @@ class Service:
     def atendimento_excluir(id):
         AtendimentoDAO().excluir(id)
     @staticmethod
-    def listando_atendimentos_por_id(id):
+    def atendimento_itens_listar_por_atendimento(id_atendimento):
         atendimento_itens = []
         for i in Service.atendimento_itens_listar(): 
-            if i.get_id_atendimento() == id: atendimento_itens.append(i)
-        return 
+            if i.get_id_atendimento() == id_atendimento: 
+                atendimento_itens.append(i)
+        return atendimento_itens
+    @staticmethod
+    def atendimento_calcular_total(id_atendimento):
+        itens = Service.atendimento_itens_listar_por_atendimento(id_atendimento)
+        total = 0.0
+        for item in itens:
+            total += item.get_valor()
+        return total
 
     @staticmethod
     def atendimento_itens_inserir(id_atendimento, id_servico, qnt, valor):

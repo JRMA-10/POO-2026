@@ -7,7 +7,7 @@ from datetime import datetime
 class RegistrarAtendimentoUI:
     def main():
         st.header("Atendimentos")
-        tab1, tab2, tab3 = st.tabs(["Listar", "Inserir", "Valores", "Visualizar"]) # Abas
+        tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir", "Valores", "Visualizar"]) # Abas
         with tab1: RegistrarAtendimentoUI.listar()
         with tab2: RegistrarAtendimentoUI.inserir()
         with tab3: RegistrarAtendimentoUI.valores()
@@ -36,15 +36,16 @@ class RegistrarAtendimentoUI:
             st.success("Atendimento atualizado com sucesso")
             time.sleep(2)
             st.rerun()
+
     def valores(): 
         atendimentos = Service.atendimento_listar()
         servicos = Service.servico_listar()
         atendimento = st.selectbox("Selecione um atendimento", atendimentos)
         servico = st.selectbox("Selecione um serviço", servicos)
-        qnt = int(st.text_input("Informe a quantidade"))
+        qnt = st.text_input("Informe a quantidade")
         valor = st.text_input(f"{servico.get_valor() * qnt}", disabled = True)
         if st.button('Enviar'): 
-            Service.atendimento_itens_inserir(atendimento.get_id(), servico.get_id(), qnt, valor)
+            Service.atendimento_itens_inserir(atendimento.get_id(), servico.get_id(), int(qnt), float(valor))
     def visualizar():
         atendimentos = Service.atendimento_listar()
         atendimento = st.selectbox("Selecione o atendimento", atendimentos)
