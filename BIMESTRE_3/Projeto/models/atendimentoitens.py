@@ -1,12 +1,13 @@
 from datetime import datetime
 
 class AtendimentoItens:
-    def __init__(self, id, id_atendimento, id_servico, qtd):
+    def __init__(self, id, id_atendimento, id_servico, qtd, valor):
         self.set_id(id)
         self.set_id_atendimento(id_atendimento)
         self.set_id_servico(id_servico)
         self.set_qtd(qtd)
-        self.__valor = 0
+        self.set_valor(valor)
+    
     def set_id(self, id):
         if id < 0: raise ValueError("Id deve ser positivo")
         self.__id = id
@@ -19,19 +20,23 @@ class AtendimentoItens:
     def set_qtd(self, qtd): 
         if qtd <= 0: raise ValueError('Deve haver pelo menos 1 serviço')
         self.__qtd = qtd
+    def set_valor(self, valor):
+        if valor < 0: raise ValueError("Valor deve ser positivo")
+        self.__valor = valor
 
     def get_id(self) : return self.__id
-    def get_atendimento(self) : return self.__id_atendimento
-    def get_servico(self) : return self.__id_servico
+    def get_id_atendimento(self) : return self.__id_atendimento
+    def get_id_servico(self) : return self.__id_servico
     def get_qtd(self) : return self.__qtd
+    def get_valor(self): return self.__valor
     
     def __str__(self):
-        return f"{self.__id} - {self.__data.strftime("%d/%m/%Y %H:%M")} - {self.__atendimento} - {self.__servico} - {self.__qtd}"
+        return f"{self.__id} - {self.__id_atendimento} - {self.__id_servico} - {self.__qtd} - {self.__valor}"
     
     def to_json(self):
-        return { "id":self.__id, "data":self.__data.strftime("%d/%m/%Y %H:%M"), "id_atendimento":self.__atendimento, "id_servico":self.__id_servico, "qtd":self.__qtd, "valor":self.__valor }
+        return { "id":self.__id, "id_atendimento":self.__id_atendimento, "id_servico":self.__id_servico, "qtd":self.__qtd, "valor":self.__valor }
     
     @staticmethod
     def from_json(dic):
-        atendimento = AtendimentoItens(dic["id"], datetime.strptime(dic["data"], "%d/%m/%Y %H:%M"), dic["id_atendimento"], dic["id_servico"], dic["qtd"], dic["valor"])
+        atendimento = AtendimentoItens(dic["id"], dic["id_atendimento"], dic["id_servico"], dic["qtd"], dic["valor"])
         return atendimento

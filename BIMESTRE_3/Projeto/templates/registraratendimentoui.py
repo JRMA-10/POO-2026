@@ -32,7 +32,7 @@ class RegistrarAtendimentoUI:
         horario = st.selectbox("Selecione o horário", horarios)
         pago = st.checkbox("Pago", disabled = True)
         if st.button("Inserir"):
-            Service.atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, horario.get_id())
+            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y"), queixa_principal, historico_saude, avaliacao, prescricao, horario.get_id())
             st.success("Atendimento atualizado com sucesso")
             time.sleep(2)
             st.rerun()
@@ -41,14 +41,15 @@ class RegistrarAtendimentoUI:
         servicos = Service.servico_listar()
         atendimento = st.selectbox("Selecione um atendimento", atendimentos)
         servico = st.selectbox("Selecione um serviço", servicos)
-        qnt = st.text_input("Informe a quantidade")
-        valor = st.text_input("Valor", disabled = True)
+        qnt = st.number_input("Informe a quantidade", min_value = 1, step = 1)
+        valor = st.number_input("Valor", servico.get_valor() * qnt, disabled = True)
         if st.button('Enviar'): 
-            Service.atendimento_itens_inserir(atendimento.get_id(), servico.get_id(), int(qnt), float(valor))
+            Service.atendimento_itens_inserir(atendimento.get_id(), servico.get_id(), qnt, valor)
             st.success("Registro realizado com sucesso")
             time.sleep(2)
             st.rerun()
     def visualizar():
         atendimentos = Service.atendimento_listar()
         atendimento = st.selectbox("Selecione o atendimento", atendimentos)
-        
+        valor_total = Service.atendimento_calcular_total(atendimento.get_id())
+        total = st.number_input("Total", valor_total, disabled = True)

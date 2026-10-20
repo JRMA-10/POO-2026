@@ -16,7 +16,7 @@ class Atendimento:
         if id < 0: raise ValueError("Id deve ser positivo")
         self.__id = id
     def set_data(self, data):
-        if data == "": raise ValueError("Data deve ser informada")
+        if data > datetime.now(): raise ValueError("Data deve ser informada")
         self.__data = data
     def set_queixa_principal(self, queixa_principal):
         if queixa_principal == "": raise ValueError("Queixa principal deve ser informada")
@@ -43,7 +43,7 @@ class Atendimento:
     def get_pago(self): return self.__pago
     
     def __str__(self):
-        return f"{self.__id} - {self.__data.strftime("%d/%m/%Y")} - {self.__queixa_principal} - {self.__historico_saude} - {self.__historico_saude} - {self.__avaliacao} - {self.__prescricao}"
+        return f"{self.__id} - {self.__data.strftime('%d/%m/%Y')} - {self.__queixa_principal} - {self.__historico_saude} - {self.__historico_saude} - {self.__avaliacao} - {self.__prescricao}"
     
     def to_json(self):
         return { "id":self.__id, "data":self.__data.strftime('%d/%m/%Y'), "queixa_principal":self.__queixa_principal, "historico_saude":self.__historico_saude, "avaliacao":self.__avaliacao, "prescricao":self.__prescricao, "id_horario":self.__id_horario }
