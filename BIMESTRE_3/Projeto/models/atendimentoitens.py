@@ -1,6 +1,6 @@
 from datetime import datetime
 
-class Atendimento:
+class AtendimentoItens:
     def __init__(self, id, id_atendimento, id_servico, qtd, valor):
         self.set_id(id)
         self.set_id_atendimento(id_atendimento)

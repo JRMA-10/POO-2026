@@ -8,6 +8,8 @@ from models.atendimento import Atendimento
 from models.atendimentodao import AtendimentoDAO
 from models.profissional import Profissional
 from models.profissionaldao import ProfissionalDAO
+from models.atendimentoitens import AtendimentoItens
+from models.atendimentoitensdao import AtendimentoItensDAO
 from datetime import datetime, timedelta
 
 class Service:
@@ -146,7 +148,31 @@ class Service:
     @staticmethod
     def atendimento_excluir(id):
         AtendimentoDAO().excluir(id)
+    @staticmethod
+    def listando_atendimentos_por_id(id):
+        atendimento_itens = []
+        for i in Service.atendimento_itens_listar(): 
+            if i.get_id_atendimento() == id: atendimento_itens.append(i)
+        return 
 
+    @staticmethod
+    def atendimento_itens_inserir(id_atendimento, id_servico, qnt, valor):
+        obj = AtendimentoItens(0, id_atendimento, id_servico, qnt, valor)
+        AtendimentoItensDAO().inserir(obj)
+    @staticmethod
+    def atendimento_itens_listar():
+        return AtendimentoItensDAO().listar()
+    @staticmethod
+    def atendimento_itens_listar_id(id):
+        return AtendimentoItensDAO().listar_id(id)
+    @staticmethod
+    def atendimento_itens_atualizar(id, id_atendimento, id_servico, qnt, valor):
+        obj = AtendimentoItens(id, id_atendimento, id_servico, qnt, valor)
+        AtendimentoItensDAO().atualizar(obj)
+    @staticmethod
+    def atendimento_itens_excluir(id):
+        AtendimentoItensDAO().excluir(id)
+     
     @staticmethod
     def profissional_inserir(nome, email, especialidade, senha):
         obj = Profissional(0, nome, email, especialidade, senha)
