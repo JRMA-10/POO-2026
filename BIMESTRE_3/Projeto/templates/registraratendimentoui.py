@@ -45,6 +45,9 @@ class RegistrarAtendimentoUI:
         valor = st.text_input("Valor", disabled = True)
         if st.button('Enviar'): 
             Service.atendimento_itens_inserir(atendimento.get_id(), servico.get_id(), int(qnt), float(valor))
+            st.success("Registro realizado com sucesso")
+            time.sleep(2)
+            st.rerun()
     def visualizar():
         atendimentos = Service.atendimento_listar()
         atendimento = st.selectbox("Selecione o atendimento", atendimentos)
