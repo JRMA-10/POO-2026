@@ -164,8 +164,8 @@ class Service:
         return total
 
     @staticmethod
-    def atendimento_itens_inserir(id_atendimento, id_servico, qnt, valor):
-        obj = AtendimentoItens(0, id_atendimento, id_servico, qnt, valor)
+    def atendimento_itens_inserir(id_atendimento, id_servico, qnt):
+        obj = AtendimentoItens(0, id_atendimento, id_servico, qnt)
         AtendimentoItensDAO().inserir(obj)
     @staticmethod
     def atendimento_itens_listar():
@@ -174,8 +174,8 @@ class Service:
     def atendimento_itens_listar_id(id):
         return AtendimentoItensDAO().listar_id(id)
     @staticmethod
-    def atendimento_itens_atualizar(id, id_atendimento, id_servico, qnt, valor):
-        obj = AtendimentoItens(id, id_atendimento, id_servico, qnt, valor)
+    def atendimento_itens_atualizar(id, id_atendimento, id_servico, qnt):
+        obj = AtendimentoItens(id, id_atendimento, id_servico, qnt)
         AtendimentoItensDAO().atualizar(obj)
     @staticmethod
     def atendimento_itens_excluir(id):

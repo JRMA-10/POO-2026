@@ -30,20 +30,19 @@ class RegistrarAtendimentoUI:
         prescricao = st.text_input("Informe a prescrição")
         horarios = Service.horario_listar()
         horario = st.selectbox("Selecione o horário", horarios)
-        pago = st.checkbox("Pago")
-        if st.button("Atualizar"):
+        pago = st.checkbox("Pago", disabled = True)
+        if st.button("Inserir"):
             Service.atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, horario.get_id())
             st.success("Atendimento atualizado com sucesso")
             time.sleep(2)
             st.rerun()
-
     def valores(): 
         atendimentos = Service.atendimento_listar()
         servicos = Service.servico_listar()
         atendimento = st.selectbox("Selecione um atendimento", atendimentos)
         servico = st.selectbox("Selecione um serviço", servicos)
         qnt = st.text_input("Informe a quantidade")
-        valor = st.text_input(f"{servico.get_valor() * qnt}", disabled = True)
+        valor = st.text_input("Valor", disabled = True)
         if st.button('Enviar'): 
             Service.atendimento_itens_inserir(atendimento.get_id(), servico.get_id(), int(qnt), float(valor))
     def visualizar():

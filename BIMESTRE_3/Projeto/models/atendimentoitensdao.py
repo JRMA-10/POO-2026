@@ -45,13 +45,12 @@ class AtendimentoItensDAO:
             arquivo.close()
             self.__objetos = []
             for dic in list_dic:
-                obj = Atendimento.from_json(dic)
+                obj = AtendimentoItens.from_json(dic)
                 self.__objetos.append(obj)
         except FileNotFoundError:
             pass
 
     def __salvar(self):    
         arquivo = open(self.__arquivo, mode = "w")
-        json.dump(self.__objetos, arquivo, default = Atendimento.to_json, indent = 2)
+        json.dump(self.__objetos, arquivo, default = AtendimentoItens.to_json, indent = 2)
         arquivo.close()
-        
