@@ -1,23 +1,16 @@
 [
   {
-    "id": 2,
-    "id_atendimento": 1,
-    "id_servico": 1,
-    "qtd": 1,
-    "valor": 20.0
-  },
-  {
-    "id": 3,
+    "id": 1,
     "id_atendimento": 1,
     "id_servico": 2,
     "qtd": 2,
     "valor": 600.0
   },
   {
-    "id": 4,
+    "id": 2,
     "id_atendimento": 1,
-    "id_servico": 2,
+    "id_servico": 1,
     "qtd": 5,
-    "valor": 1500.0
+    "valor": 100.0
   }
 ]

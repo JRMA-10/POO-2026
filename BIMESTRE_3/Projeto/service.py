@@ -120,6 +120,14 @@ class Service:
             if h.get_id_cliente() == id_cliente: 
                 r.append(h)
         return r
+    @staticmethod
+    def horarios_atendimento(id_profissional): 
+        r = []
+        for h in Service.horario_listar(): 
+            if h.get_id_profissional() == id_profissional and h.get_confirmado(): 
+                r.append(h)
+        r.sort(key = lambda h : h.get_data())
+        return r
     
     @staticmethod
     def horario_abrir_minha_agenda(data, horario_inicio, horario_fim, intervalo, id_profissional): 
@@ -133,7 +141,8 @@ class Service:
 
     @staticmethod
     def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
-        obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
+        obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao)
+        obj.set_id_horario(id_horario)
         AtendimentoDAO().inserir(obj)
     @staticmethod
     def atendimento_listar():
@@ -143,11 +152,13 @@ class Service:
         return AtendimentoDAO().listar_id(id)
     @staticmethod
     def atendimento_atualizar(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
-        obj = Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
+        obj = Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao)
+        obj.set_id_horario(id_horario)
         AtendimentoDAO().atualizar(obj)
     @staticmethod
     def atendimento_excluir(id):
         AtendimentoDAO().excluir(id)
+
     @staticmethod
     def atendimento_itens_listar_por_atendimento(id_atendimento):
         atendimento_itens = []
@@ -164,8 +175,17 @@ class Service:
         return total
 
     @staticmethod
+    def pagar_atendimento(a): 
+        a.set_pago(True)
+        AtendimentoDAO().atualizar(a)
+
+    @staticmethod
     def atendimento_itens_inserir(id_atendimento, id_servico, qnt, valor):
         obj = AtendimentoItens(0, id_atendimento, id_servico, qnt, valor)
+        total = Service.atendimento_calcular_total(id_atendimento)
+        atendimento = Service.atendimento_listar_id(id_atendimento)
+        atendimento.set_total(total)
+        AtendimentoDAO().atualizar(atendimento)
         AtendimentoItensDAO().inserir(obj)
     @staticmethod
     def atendimento_itens_listar():

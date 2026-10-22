@@ -1,20 +1,13 @@
 [
   {
     "id": 1,
-    "data": "20/10/2026",
-    "queixa_principal": "tgfklwafjknh",
-    "historico_saude": "njgbiefbiqbf",
-    "avaliacao": "nfuiqfnibnqbf",
-    "prescricao": "fhqiufbuorbvyirv",
-    "id_horario": 1
-  },
-  {
-    "id": 2,
-    "data": "20/10/2026",
-    "queixa_principal": "rlfnhirnhifb",
-    "historico_saude": "jfnuiqmfbq",
-    "avaliacao": "fnuiqnfgi",
-    "prescricao": "pfi",
-    "id_horario": 1
+    "data": "22/10/2026",
+    "queixa_principal": "Vasco da gama \u00e9 o melhor",
+    "historico_saude": "Vasco da gama \u00e9 o melhor",
+    "avaliacao": "Vasco da gama \u00e9 o melhor",
+    "prescricao": "Vasco da gama \u00e9 o melhor",
+    "id_horario": 8,
+    "total": 600.0,
+    "pago": true
   }
 ]

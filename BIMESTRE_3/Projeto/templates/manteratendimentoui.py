@@ -18,8 +18,8 @@ class ManterAtendimentoUI:
         else:
             list_dic = []
             for obj in atendimentos:
-                horario = Service.horario_listar_id(obj.get_horario_id())
-                list_dic.append({"id": obj.get_id(), "data": obj.get_data(), "queixa_principal": obj.get_queixa_principal(), "historico_saude": obj.get_historico_saude(), "avaliacao": obj.get_avaliacao(), "prescricao": obj.get_prescricao(), "id_horario": horario})
+                horario = Service.horario_listar_id(obj.get_id_horario())
+                list_dic.append({"id": obj.get_id(), "data": obj.get_data(), "queixa_principal": obj.get_queixa_principal(), "historico_saude": obj.get_historico_saude(), "avaliacao": obj.get_avaliacao(), "prescricao": obj.get_prescricao(), "id_horario": horario.get_data()})
             df = pd.DataFrame(list_dic)
             st.dataframe(df)
     def inserir():
@@ -41,19 +41,28 @@ class ManterAtendimentoUI:
         if len(atendimentos) == 0: st.write("Nenhum atendimento cadastrado")
         else:
             horarios = Service.horario_listar()
-            op = st.selectbox("Atualização de atendimento", atendimentos)
-            data = st.text_input("Informe a nova data e o horário do serviço", op.get_data().strftime("%d/%m/%Y %H:%M"))
-            queixa_principal = st.text_input("Informe a queixa principal")
-            historico_saude = st.text_input("Informe o histórico de saúde")
-            avaliacao = st.text_input("Informe a avaliação médica")
-            prescricao = st.text_input("Informe a prescrição")
+            op = st.selectbox("Atualização de atendimento", atendimentos, key="select_atendimento_atualizar")
+            
+            # Preenchendo os campos com os valores atuais do atendimento selecionado
+            data = st.text_input("Informe a nova data e o horário do serviço", op.get_data().strftime("%d/%m/%Y %H:%M"), key="data_atualizar")
+            queixa_principal = st.text_input("Informe a queixa principal", op.get_queixa_principal(), key="queixa_atualizar")
+            historico_saude = st.text_input("Informe o histórico de saúde", op.get_historico_saude(), key="historico_atualizar")
+            avaliacao = st.text_input("Informe a avaliação médica", op.get_avaliacao(), key="avaliacao_atualizar")
+            prescricao = st.text_input("Informe a prescrição", op.get_prescricao(), key="prescricao_atualizar")
+            
             id_horario = None if op.get_id_horario() in [0, None] else op.get_id_horario()
-            horario = st.selectbox("Informe o novo horario", horarios, next((i for i, c in enumerate(horarios) if c.get_id() == id_horario), None))
-            if st.button("Atualizar"):
-                id_horario = None
-                if horario != None: id_horario = horario.get_id()
-                Service.horario_atualizar(datetime.strptime(data, "%d/%m/%Y %H:%M"), queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
-                st.success("Horário atualizado com sucesso")
+            
+            default_idx = next((i for i, c in enumerate(horarios) if c.get_id() == id_horario), 0)
+            horario = st.selectbox("Informe o novo horario", horarios, index=default_idx, key="horario_atualizar")
+            
+            if st.button("Atualizar Atendimento", key="btn_atualizar"):
+                id_horario_novo = None
+                if horario != None: 
+                    id_horario_novo = horario.get_id()
+                
+                Service.atendimento_atualizar(op.get_id(), datetime.strptime(data, "%d/%m/%Y %H:%M"), queixa_principal, historico_saude, avaliacao, prescricao, id_horario_novo)
+                
+                st.success("Atendimento atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
     def excluir():
