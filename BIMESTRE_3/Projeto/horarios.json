@@ -262,5 +262,29 @@
     "id_cliente": 2,
     "id_servico": 2,
     "id_profissional": 2
+  },
+  {
+    "id": 34,
+    "data": "22/10/2026 16:17",
+    "confirmado": true,
+    "id_cliente": 2,
+    "id_servico": 1,
+    "id_profissional": 2
+  },
+  {
+    "id": 35,
+    "data": "22/10/2026 16:27",
+    "confirmado": true,
+    "id_cliente": 2,
+    "id_servico": 1,
+    "id_profissional": 2
+  },
+  {
+    "id": 36,
+    "data": "22/10/2026 16:32",
+    "confirmado": true,
+    "id_cliente": 1,
+    "id_servico": 1,
+    "id_profissional": 1
   }
 ]

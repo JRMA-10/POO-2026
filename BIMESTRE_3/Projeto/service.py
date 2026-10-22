@@ -138,6 +138,30 @@ class Service:
         while x <= data_fim:
             Service.horario_inserir(x, False, None, None, id_profissional)
             x += delta
+    @staticmethod
+    def horarios_listar_confirmados_hoje(): 
+        horarios = Service.horario_listar()
+        horarios_hoje = []
+        for h in horarios:
+            data = h.get_data().strftime("%d/%m/%Y %M:%H")
+            data = data[:10]
+            data = datetime.strptime(data, "%d/%m/%Y")
+            data_agora = datetime.now().strftime("%d/%m/%Y")
+            data_agora = datetime.strptime(data_agora, "%d/%m/%Y")
+            if h.get_confirmado() and data == data_agora: 
+                horarios_hoje.append(h)
+        if len(horarios_hoje) == 0: return None
+        horarios_hoje.sort(key = lambda h : h.get_data())
+        return horarios_hoje
+    @staticmethod
+    def agenda_profissionais(id_profissional): 
+        horarios = Service.horario_listar()
+        agendamentos = []
+        for h in horarios: 
+            if h.get_id_profissional() == id_profissional: agendamentos.append(h)
+        if len(agendamentos) == 0: return None
+        agendamentos.sort(key = lambda h : h.get_data())
+        return agendamentos
 
     @staticmethod
     def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
