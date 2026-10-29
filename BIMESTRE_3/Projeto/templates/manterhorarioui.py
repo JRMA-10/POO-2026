@@ -47,10 +47,14 @@ class ManterHorarioUI:
             if cliente != None: id_cliente = cliente.get_id()
             if servico != None: id_servico = servico.get_id()
             if profissional != None: id_profissional = profissional.get_id()
-            Service.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
-            st.success("Horário inserido com sucesso")
-            time.sleep(2)
-            st.rerun()
+            try: 
+                Service.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
+                st.success("Horário inserido com sucesso")
+            except ValueError: 
+                st.error("Não foi possível cadastrar o horário! O profissional já está ocupado!")
+            finally: 
+                time.sleep(2)
+                st.rerun()
 
     def atualizar():
         horarios = Service.horario_listar()
@@ -76,10 +80,14 @@ class ManterHorarioUI:
                 if cliente != None: id_cliente = cliente.get_id()
                 if servico != None: id_servico = servico.get_id()
                 if profissional != None: id_profissional = profissional.get_id()
-                Service.horario_atualizar(op.get_id(), datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
-                st.success("Horário atualizado com sucesso")
-                time.sleep(2)
-                st.rerun()
+                try: 
+                    Service.horario_atualizar(op.get_id(), datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
+                    st.success("Horário atualizado com sucesso")
+                except ValueError: 
+                    st.error("Não foi possível atualizar!")
+                finally: 
+                    time.sleep(2)
+                    st.rerun()
 
     def excluir():
         horarios = Service.horario_listar()
@@ -87,7 +95,11 @@ class ManterHorarioUI:
         else:
             op = st.selectbox("Exclusão de Horários", horarios)
             if st.button("Excluir"):
-                Service.horario_excluir(op.get_id())
-                st.success("Horário excluído com sucesso")
-                time.sleep(2)
-                st.rerun()
+                try: 
+                    Service.horario_excluir(op.get_id())
+                    st.success("Horário excluído com sucesso")
+                except ValueError: 
+                    st.error("Não foi possível excluir!")
+                finally: 
+                    time.sleep(2)
+                    st.rerun()

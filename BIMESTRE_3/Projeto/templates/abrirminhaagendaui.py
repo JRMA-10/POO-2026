@@ -34,8 +34,12 @@ class AbrirMinhaAgendaUI:
         horario_inicio = st.text_input("Informe o horário inicial no formato HH:MM")
         horario_fim = st.text_input("Informe o horário final no formato HH:MM")
         intervalo = st.text_input("Informe o intervalo entre cada consulta")
-        if st.button("Abrir agenda"): 
-            Service.horario_abrir_minha_agenda(data, horario_inicio, horario_fim, int(intervalo), st.session_state["usuario_id"])
-            st.success("Horários inseridos com sucesso")
-            time.sleep(2)
-            st.rerun()
+        if st.button("Abrir agenda"):
+            try: 
+                Service.horario_abrir_minha_agenda(data, horario_inicio, horario_fim, int(intervalo), st.session_state["usuario_id"])
+                st.success("Horários inseridos com sucesso")
+            except ValueError: 
+                st.error("Não foi possível inserir!")
+            finally: 
+                time.sleep(2)
+                st.rerun()

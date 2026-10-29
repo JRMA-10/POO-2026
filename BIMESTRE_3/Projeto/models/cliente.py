@@ -11,7 +11,7 @@ class Cliente:
         if id < 0: raise ValueError('Id deve ser positivo!')
         self.__id = id
 
-    def set_nome(self, nome): 
+    def set_nome(self, nome):
         if len(nome) == 0: raise ValueError('Nome deve ser informado!')
         self.__nome = nome
 
@@ -25,7 +25,7 @@ class Cliente:
 
     def set_senha(self, senha):
         if len(senha) == 0: raise ValueError
-        self.__senha = senha 
+        self.__senha = senha
     
     def get_id(self): return self.__id
     def get_nome(self): return self.__nome

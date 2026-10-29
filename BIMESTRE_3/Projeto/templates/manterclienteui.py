@@ -23,11 +23,17 @@ class ManterClienteUI:
         nome = st.text_input("Informe o nome")
         email = st.text_input("Informe o e-mail")
         fone = st.text_input("Informe o fone")
+        senha = st.text_input("Informe a senha")
         if st.button("Inserir"):
-            Service.cliente_inserir(nome, email, fone)
-            st.success("Cliente inserido com sucesso")
-            time.sleep(2)
-            st.rerun()
+            try: 
+                Service.cliente_inserir(nome, email, fone, senha)
+                st.success("Cliente inserido com sucesso")
+                time.sleep(2)
+            except ValueError: 
+                st.error("Dados já existentes!")
+            finally:
+                time.sleep(2)
+                st.rerun()
     def atualizar():
         clientes = Service.cliente_listar()
         if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
@@ -49,3 +55,4 @@ class ManterClienteUI:
                 id = op.get_id()
                 Service.cliente_excluir(id)
                 st.success("Cliente excluído com sucesso")
+                st.rerun()

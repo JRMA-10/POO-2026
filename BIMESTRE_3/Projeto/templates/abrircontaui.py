@@ -10,7 +10,12 @@ class AbrirContaUI:
         fone = st.text_input("Informe o fone")
         senha = st.text_input("Informe a senha", type="password") # Deixa daquele jeito lá de senha
         if st.button("Inserir"):
-            Service.cliente_inserir(nome, email, fone, senha)
-            st.success("Conta criada com sucesso")
-            time.sleep(2)
-            st.rerun()
+            try: 
+                Service.cliente_inserir(nome, email, fone, senha)
+                st.success("Conta criada com sucesso")
+                time.sleep(2)
+            except ValueError: 
+                st.error("Dados já existentes!")
+            finally: 
+                time.sleep(2)
+                st.rerun()

@@ -27,10 +27,14 @@ class ManterProfissionalUI:
         especialidade = st.text_input("Informe a especialidade")
         senha = st.text_input("Informe a senha", type="password")
         if st.button("Inserir"):
-            Service.profissional_inserir(nome, email, especialidade, senha)
-            st.success("Profissional inserido com sucesso")
-            time.sleep(2)
-            st.rerun()
+            try: 
+                Service.profissional_inserir(nome, email, especialidade, senha)
+                st.success("Profissional inserido com sucesso")
+            except ValueError: 
+                st.error("Não foi possível inserir o profissional, dados já existentes!")
+            finally: 
+                time.sleep(2)
+                st.rerun()
 
     def atualizar():
         profissionais = Service.profissional_listar()
@@ -44,10 +48,14 @@ class ManterProfissionalUI:
 
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.profissional_atualizar(id, nome, email, especialidade, senha)
-                st.success("Profissional atualizado com sucesso")
-                time.sleep(2)
-                st.rerun()
+                try: 
+                    Service.profissional_atualizar(id, nome, email, especialidade, senha)
+                    st.success("Profissional atualizado com sucesso")
+                except ValueError: 
+                    st.error("Não foi possível atualizar o profissional!")
+                finally: 
+                    time.sleep(2)
+                    st.rerun()
 
     def excluir():
         profissionais = Service.profissional_listar()
@@ -56,7 +64,11 @@ class ManterProfissionalUI:
             op = st.selectbox("Exclusão de Profissionais", profissionais)
             if st.button("Excluir"):
                 id = op.get_id()
-                Service.profissional_excluir(id)
-                st.success("Profissional excluído com sucesso")
-                time.sleep(2)
-                st.rerun()
+                try: 
+                    Service.profissional_excluir(id)
+                    st.success("Profissional excluído com sucesso")
+                except ValueError: 
+                    st.error("Não foi possível excluir o profissional!")
+                finally: 
+                    time.sleep(2)
+                    st.rerun()
