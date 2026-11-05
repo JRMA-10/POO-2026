@@ -4,7 +4,7 @@ import time
 import pandas as pd
 from datetime import datetime
 
-class MeusServicosUI: 
+class MeusServicosUI:
     def main():
         st.header("Meus Serviços")
         horarios = Service.cliente_visualizar_agenda(st.session_state["usuario_id"])
