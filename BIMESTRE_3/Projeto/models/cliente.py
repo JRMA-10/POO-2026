@@ -6,6 +6,7 @@ class Cliente:
         self.set_email(email)
         self.set_fone(fone)
         self.set_senha(senha)
+        self.set_imagem("")
 
     def set_id(self, id): 
         if id < 0: raise ValueError('Id deve ser positivo!')
@@ -26,18 +27,20 @@ class Cliente:
     def set_senha(self, senha):
         if len(senha) == 0: raise ValueError
         self.__senha = senha
+    def set_imagem(self, imagem): self.__imagem = imagem
     
     def get_id(self): return self.__id
     def get_nome(self): return self.__nome
     def get_email(self): return self.__email
     def get_fone(self): return self.__fone
     def get_senha(self): return self.__senha
+    def get_imagem(self): return self.__imagem
 
-    def to_json(self): return {'id' : self.__id, 'nome' : self.__nome, 'email' : self.__email, 'fone' : self.__fone, 'senha' : self.__senha}
+    def to_json(self): return {'id' : self.__id, 'nome' : self.__nome, 'email' : self.__email, 'fone' : self.__fone, 'senha' : self.__senha, "imagem" : self.__imagem}
 
     @staticmethod
-    def from_json(dic): return Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['senha'])
+    def from_json(dic): return Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['senha'], dic['imagem'])
 
     def __str__(self): 
-        return f'ID: {self.__id} | NOME: {self.__nome} | EMAIL: {self.__email} | TELEFONE: {self.__fone} | SENHA: {self.__senha}'
+        return f'ID: {self.__id} | NOME: {self.__nome} | EMAIL: {self.__email} | TELEFONE: {self.__fone} | SENHA: {self.__senha} | IMAGEM: {self.__imagem}'
     

@@ -1,15 +1,15 @@
 from models.cliente import Cliente
 from dao_sql.clientedao import ClienteDAO
 from models.servico import Servico
-from dao_json.servicodao import ServicoDAO
+from dao_sql.servicodao import ServicoDAO
 from models.horario import Horario
-from dao_json.horariodao import HorarioDAO
+from dao_sql.horariodao import HorarioDAO
 from models.atendimento import Atendimento
-from dao_json.atendimentodao import AtendimentoDAO
+from dao_sql.atendimentodao import AtendimentoDAO
 from models.profissional import Profissional
-from dao_json.profissionaldao import ProfissionalDAO
+from dao_sql.profissionaldao import ProfissionalDAO
 from models.atendimentoitens import AtendimentoItens
-from dao_json.atendimentoitensdao import AtendimentoItensDAO
+from dao_sql.atendimentoitensdao import AtendimentoItensDAO
 from datetime import datetime, timedelta
 
 class Service:
@@ -29,11 +29,12 @@ class Service:
     def cliente_listar_id(id):
         return ClienteDAO().listar_id(id)
     @staticmethod
-    def cliente_atualizar(id, nome, email, fone, senha):
+    def cliente_atualizar(id, nome, email, fone, senha, foto):
         clientes = ClienteDAO().listar()
         for c in clientes: 
             if c.get_email().strip() == email.strip() or email.strip() == 'admin': raise ValueError('Email igual a existente')
         obj = Cliente(id, nome, email, fone, senha)
+        obj.set_foto(foto)
         ClienteDAO().atualizar(obj)
 
     @staticmethod
@@ -269,11 +270,12 @@ class Service:
     def profissional_listar_id(id):
         return ProfissionalDAO().listar_id(id)
     @staticmethod
-    def profissional_atualizar(id, nome, email, especialidade, senha):
+    def profissional_atualizar(id, nome, email, especialidade, senha, imagem):
         profissionais = ProfissionalDAO().listar()
         for p in profissionais: 
             if p.get_email().strip() == email.strip() or email.strip() == 'admin': raise ValueError
         obj = Profissional(id, nome, email, especialidade, senha)
+        obj.set_imagem(imagem)
         ProfissionalDAO().atualizar(obj)
 
     @staticmethod

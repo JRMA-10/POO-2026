@@ -30,8 +30,9 @@ class ManterProfissionalUI:
             try: 
                 Service.profissional_inserir(nome, email, especialidade, senha)
                 st.success("Profissional inserido com sucesso")
-            except ValueError: 
-                st.error("Não foi possível inserir o profissional, dados já existentes!")
+            except ValueError as e: 
+                st.error(e)
+                #st.error("Não foi possível atualizar o profissional!")
             finally: 
                 time.sleep(2)
                 st.rerun()
@@ -49,7 +50,7 @@ class ManterProfissionalUI:
             if st.button("Atualizar"):
                 id = op.get_id()
                 try: 
-                    Service.profissional_atualizar(id, nome, email, especialidade, senha)
+                    Service.profissional_atualizar(id, nome, email, especialidade, senha, "")
                     st.success("Profissional atualizado com sucesso")
                 except ValueError: 
                     st.error("Não foi possível atualizar o profissional!")

@@ -82,6 +82,18 @@ class Database:
                 FOREIGN KEY (id_horario) REFERENCES horario(id) ON DELETE CASCADE
             );
         """)
+        cls.execute("""
+            CREATE TABLE IF NOT EXISTS atendimentoitens (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id_atendimento INTEGER NOT NULL,
+                id_servico INTEGER NULL,
+                qtd TEXT INTEGER,
+                valor FLOAT NULL,
+
+                FOREIGN KEY (id_atendimento) REFERENCES atendimento(id) ON DELETE CASCADE
+                FOREIGN KEY (id_servico) REFERENCES servico(id) ON DELETE CASCADE
+            );
+        """)
 
 Database.abrir()
 Database.criar_tabelas()
