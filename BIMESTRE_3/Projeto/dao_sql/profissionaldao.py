@@ -36,10 +36,10 @@ class ProfissionalDAO(DAO):
     def atualizar(cls, obj):
         cls.abrir()
         sql = """
-            UPDATE profissional SET nome=?, email=?, fone=?, senha=?
+            UPDATE profissional SET nome=?, email=?, fone=?, senha=?, imagem=?
             WHERE id=?
         """
-        cls.execute(sql, (obj.get_nome(), obj.get_email(), obj.get_especialidade(), obj.get_senha(), obj.get_id()))
+        cls.execute(sql, (obj.get_nome(), obj.get_email(), obj.get_especialidade(), obj.get_senha(), obj.get_imagem(), obj.get_id()))
         cls.fechar()
 
     @classmethod

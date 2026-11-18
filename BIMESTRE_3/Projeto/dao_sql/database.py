@@ -28,18 +28,23 @@ class Database:
                 nome TEXT NOT NULL,
                 email TEXT NOT NULL,
                 fone TEXT,
-                senha TEXT NOT NULL
+                senha TEXT NOT NULL, 
+                imagem TEXT NOT NULL
             );
         """)
 
         # --------------------- Tabela Profissional ---------------------
         cls.execute("""
+            ALTER TABLE profissional
+            ADD imagem TEXT NOT NULL;
+
             CREATE TABLE IF NOT EXISTS profissional (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
                 email TEXT NOT NULL,
                 especialidade TEXT NULL,
-                senha TEXT NOT NULL
+                senha TEXT NOT NULL, 
+                imagem TEXT NOT NULL
             );
         """)
 
@@ -96,5 +101,5 @@ class Database:
         """)
 
 Database.abrir()
-Database.criar_tabelas()
+#Database.criar_tabelas()
 Database.fechar()

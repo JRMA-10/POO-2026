@@ -270,7 +270,7 @@ class Service:
     def profissional_listar_id(id):
         return ProfissionalDAO().listar_id(id)
     @staticmethod
-    def profissional_atualizar(id, nome, email, especialidade, senha, imagem):
+    def profissional_atualizar(id, nome, email, especialidade, senha, imagem = ""):
         profissionais = ProfissionalDAO().listar()
         for p in profissionais: 
             if p.get_email().strip() == email.strip() or email.strip() == 'admin': raise ValueError
