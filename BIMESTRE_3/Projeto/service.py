@@ -292,3 +292,35 @@ class Service:
             if c.get_email() == email and c.get_senha() == senha:
                 return {"id": c.get_id(), "nome": c.get_nome()}
         return None
+
+    @staticmethod
+    def totalizar_atendimentos_profissionais(inicio, fim, id_profissional):
+        data_inicio = inicio[:10]
+        data_inicio = datetime.strptime(data_inicio, "%d/%m/%Y")
+
+        data_fim = fim[:10]
+        data_fim = datetime.strptime(data_fim, "%d/%m/%Y")
+
+        atendimentos = Service.atendimento_listar()
+        horarios = Service.horario_listar()
+        atendimentos_profissional = []
+
+        for a in atendimentos: 
+            id_horario = a.get_id_horario()
+            horario = Service.horario_listar_id(id_horario)
+            if horario.get_id_profissional == id_profissional: 
+                atendimentos_profissional.append(a)
+
+        # filtro
+        atendimentos_tempo = []
+        for ap in atendimentos_profissional: 
+            horario = ap.get_id_horario()
+            horario_obj = Service.horario_listar_id(horario)
+            # Transformando horário: 
+            data = horario_obj.get_data().strftime("%d/%m/%Y %M:%H")
+            data = data[:10]
+            data = datetime.strptime(data, "%d/%m/%Y")
+            if data_inicio <= data <= data_fim: 
+                atendimentos_tempo.append(ap)
+    
+        return atendimentos_tempo

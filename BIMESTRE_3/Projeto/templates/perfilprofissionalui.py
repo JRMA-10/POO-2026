@@ -20,7 +20,8 @@ class PerfilProfissionalUI:
                     imagem_string = base64.b64encode(bytes_da_imagem).decode("utf-8")
                 Service.profissional_atualizar(id, nome, email, especialidade, senha, imagem_string)
                 st.success("Profissional atualizado com sucesso")
-            except ValueError: 
+            except ValueError as e:
+                st.write(e)
                 st.error("Informações não podem ser alteradas!")
             finally: 
                 time.sleep(2)
