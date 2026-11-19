@@ -33,11 +33,13 @@ class Database:
             );
         """)
 
+        cls.execute("""
+            ALTER TABLE cliente
+            ADD imagem TEXT NOT NULL;
+        """)
+
         # --------------------- Tabela Profissional ---------------------
         cls.execute("""
-            ALTER TABLE profissional
-            ADD imagem TEXT NOT NULL;
-
             CREATE TABLE IF NOT EXISTS profissional (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
@@ -46,6 +48,10 @@ class Database:
                 senha TEXT NOT NULL, 
                 imagem TEXT NOT NULL
             );
+        """)
+        cls.execute("""
+            ALTER TABLE profissional
+            ADD imagem TEXT NOT NULL;
         """)
 
         # --------------------- Tabela Servico ---------------------
@@ -101,5 +107,5 @@ class Database:
         """)
 
 Database.abrir()
-#Database.criar_tabelas()
+Database.criar_tabelas()
 Database.fechar()
